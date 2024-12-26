@@ -46,6 +46,27 @@ app.get('/contacts/:id', (req , res ) => {
 
 })
 
+app.put('/contacts/:id' , (req , res) => {
+
+    const id = req.params.id
+
+    const locateContactById = listContacts.findIndex(contact => contact.id == id)
+
+    if(locateContactById == -1){
+
+        return res.status(404).json({error: 'contact not found'})
+    }
+
+    const contactUpdate = listContacts[locateContactById]
+
+    contactUpdate.name = req.body.name
+    contactUpdate.contact = req.body.contact
+
+    res.status(200).json(contactUpdate)
+
+
+})
+
 app.delete('/contacts/:id', (req,res) => {
 
     const id = req.params.id 
